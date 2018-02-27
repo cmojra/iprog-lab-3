@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dinner planner</title>
+
+    <!-- Bootstrap CSS
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">-->
+
+
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="main.css"> 
+
+  </head>
+  <body>
+  	<header>
+  		<h1>Dinner Planner</h1>
+	</header>
+
+	<div class="row">
+
+		<!--================================================================== landingPage start ==================================================================-->
+
+		<div class="jumbotron" id="startView">
+			<div class="row justify-content-center text-center">
+
+				<div class="col-12 col-md-4">
+					<h6>Lorem ipsum dolor sit amet, consectetuer adipiscing 
+						elit. Aenean commodo ligula eget dolor. Aenean massa. 
+						Cum sociis natoque penatibus et magnis dis parturient 
+						montes, nascetur ridiculus mus. Donec quam felis, 
+						ultricies nec, pellentesque eu, pretium quis, sem.</h6>
+				</div>
+
+				<div class="col-12">
+					<a class='btn btn-primary' id="newDinnerBtn" role='button'>Create new dinner</a>	
+				</div>
+					
+			</div>
+				
+		</div>
+
+		<!--================================================================== landingPage end ==================================================================-->
+
+		<!--================================================================== navView start ==================================================================-->
+		<div class="col-sm-3" id="leftContainer" style="display: none;" style="width: 100%;">
+ 			
+ 			<nav class="navbar flex-md-column navbar-expand-lg bg-faded navbar-light" id="navView" >
+				<div class="navbar-brand my-auto">
+					<h3>My Dinner</h3>	
+				</div>
+
+				<span class="d-md-none" id="totalPriceNav"><h4></h4></span> 
+
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2">
+	   				<span class="navbar-toggler-icon"></span>
+	 			</button>
+				
+	 			<div class="collapse navbar-collapse flex-md-column" id="navbarSupportedContent2" style="width: 100%;" >
+					
+				  	<div class="container-fluid">
+				  		<div class="row">
+				  			<div class="col-12">
+								Number of guests: <span id="numberOfGuests"></span>
+							</div>
+						</div>
+					</div>
+				
+					<div>
+			       		<button id="minusBtn" class="btn">-</button>
+						<button id="plusBtn" class="btn">+</button>
+					</div>
+
+					<div class="container-fluid" style="margin-top: 20px;">
+						<div class="row" id="infoTexts" >
+							<div class="col-10" id="">Dish name</div>
+							<div class="col-2" id="cost">Cost</div>
+						</div>
+					</div>
+
+					<div class="container-fluid">
+						<div class="row" id="leftMenu">
+
+						</div>
+					</div>
+					
+
+					<div style="text-align: right; padding-right: 10px;" id="totalPrice">
+								
+					</div>
+
+					
+					<a class='btn btn-primary' role='button' id="confirmDinnerBtn" style="margin-top: 20px;">Confirm dinner</a>
+				</div>
+
+			</nav>
+					
+		</div>
+
+		<!--================================================================== navView end ==================================================================-->
+
+		<!--================================================================== allDishesView start ==================================================================-->
+
+		<div class="col-sm-9" style="display: none;" id="allDishesView">		
+			<div class="container-fluid" style="margin-top: 20px;">
+
+			<h3 style="padding-left: 10px;  margin-bottom: 0px;">Find a dish</h3>
+
+				<div class="row justify-content-center" id="searchArea">
+					<div class="col-sm-4" style="margin-top: 10px;">				
+						<form>
+						    <div>
+						    	<input id="searchText" type="text" class="form-control" placeholder="Enter keywords" onkeypress="return event.keyCode != 13">
+						    </div>
+						</form>
+					</div>
+
+					<div class="btn-group mr-2">
+					    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					      	All
+					    </button>
+
+					    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+					    	<a class="dropdown-item" id="allButton">All</a>
+					      	<a class="dropdown-item" id="startersButton">Starters</a>
+					      	<a class="dropdown-item" id="mainDishButton">Main dish</a>
+					      	<a class="dropdown-item" id="dessertButton">Dessert</a>
+					    </div>
+					</div>
+
+				</div>
+
+				<div class="container-fluid">
+					<div class="row" id="all">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--================================================================== allDishesView end ==================================================================-->
+
+		<!--================================================================== foodInfoView start ==================================================================-->
+
+		<div class="col-sm-9 col-xs-12" style="display: none;" id="foodInfoView">
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-sm-6 col-xs-12" id="info">
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<div class="text-center">
+										<h3 id="dishName"></h3>							
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<div class='text-center'>
+										<span id="infoImg"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<span id="infoDescription"></span>
+								</div>
+							</div>
+						</div>
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-12">
+									<div class="text-center">
+										<a class="btn btn-primary" id="backBtn" role="button">Back to search</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				
+					<div class="col-sm-6 col-xs-12" >
+						<div class="container-fluid" style="background: #e9ecef; padding-bottom: 15px; padding-top: 10px; margin-top: 15px;">
+
+							
+								<div class='row' >
+									<div class='col-12' style='margin-bottom: 20px;'>
+										INGREDIENTS FOR <span id="infoNumberOfGuests"></span> PEOPLE
+									</div> 
+								</div> 
+
+								<div id="recipe">
+									
+								</div>
+					
+						
+								<div class='row  justify-content-end'>
+
+
+
+									<div class='col-1 d-none d-md-block' style='margin-top: 20px;'>
+										SEK
+									</div> 
+
+									<div class='col-1' style=' margin-top: 20px; margin-right: 20px;'>
+										<span id="infoTotalPrice"></span>
+									</div>
+
+
+								</div>
+
+								<div class="row">
+									<div class='col-9' style='margin-top: 20px;'>
+										<div class='text-center'>
+											<a class='btn btn-primary' id='addToMenuBtn' role='button'>Add to menu</a>
+										</div>
+									</div>
+									
+								</div> 
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+
+		<!--================================================================== foodInfoView end ==================================================================-->
+
+		<!--================================================================== dinnerView start ==================================================================-->
+
+		<div class="container-fluid" style="display: none;" id="dinnerView">
+			<div class="container-fluid" id="searchArea" style="margin-top: 20px">
+				<div class="row text-center">
+					<div class="col-md-5 col-12">
+						<span id="numberOfGuests"></span>
+					</div>
+
+					<div class="col-md-3 col-12 offset-md-3">
+						<a class='btn btn-primary' id="editBtn" role='button'>Go back and edit dinner</a>				
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="container-fluid" id="searchArea">
+				<div class="row" id="menu">
+					
+				</div>
+			</div>
+
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-12 text-center">
+						<a class='btn btn-lg btn-primary' id="printBtn" role='button'>Print full recipe</a>
+					</div>	
+				</div>
+			</div>
+
+		</div>
+
+		<!--================================================================== dinnerView end ==================================================================-->
+
+		<!--================================================================== printDinnerView start ==================================================================-->
+
+		<div class="container-fluid" style="display: none;" id="printView">
+			<div class="container-fluid" id="searchArea" style="margin-top: 20px">
+				<div class="row text-center">
+					<div class="col-md-5 col-12">
+						<span id="numberOfGuests"></span>
+					</div>
+
+					<div class="col-md-3 col-12 offset-md-3">
+						<a class='btn btn-primary' id="editBtn2" role='button'>Go back and edit dinner</a>				
+					</div>
+					
+				</div>
+			</div>
+
+			<div class="container-fluid" id="menu">
+				
+			</div>
+		</div>
+
+		<!--================================================================== printDinnerView end ==================================================================-->
+
+		
+
+
+
+	</div>
+
+	<script>
+
+
+
+	</script>
+
+    <!-- jQuery, bootstrap 4.0-->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- The application JavaScript code -->
+	<script src="js/app.js"></script>
+	<script src="js/model/dinnerModel.js"></script>
+
+	<script src="js/view/navView.js"></script>
+	<script src="js/controllers/navController.js"></script>	
+
+	<script src="js/view/allDishesView.js"></script>
+	<script src="js/controllers/searchController.js"></script>	
+
+	<script src="js/view/foodInfoView.js"></script>
+	<script src="js/controllers/infoController.js"></script>
+
+	<script src="js/view/startView.js"></script>
+	<script src="js/controllers/startController.js"></script>
+
+	<script src="js/view/dinnerView.js"></script>
+	<script src="js/controllers/dinnerController.js"></script>
+
+	<script src="js/view/printView.js"></script>
+	<script src="js/controllers/printController.js"></script>
+
+	<script src="js/controllers/dishController.js"></script>
+	
+  </body>
+</html>

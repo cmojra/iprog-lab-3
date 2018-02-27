@@ -1,0 +1,55 @@
+body{
+	margin: 0;
+}
+
+header {
+	background: #888;
+	margin: 0;
+}
+
+header h1 {
+	margin: 0;
+	padding: 20px 0px;
+	text-align: center;
+}
+
+#leftContainer {
+	border-right: 2px solid black;
+	padding-right: 0px;
+}
+
+
+#infoTexts {
+	background: #777;
+	margin-right: 0px;
+	padding-right: 15px;
+}
+
+#margin{
+	margin-top: 20px;
+}
+
+#cost {
+	text-align: right;
+	padding-right: 10px;
+}
+
+#searchArea {
+	border-bottom: 2px solid black;
+	margin-bottom: 30px;
+	margin-top: 0px;
+	padding-bottom: 20px;
+}
+
+#total {
+	border-left: 2px solid black
+}
+
+.btn-group{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.collapse div {
+	width: 100%;
+}
