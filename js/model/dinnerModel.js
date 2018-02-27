@@ -4,9 +4,6 @@ var DinnerModel = function() {
 	//Lab 3
 	//starter=appetizer, main dish= main course,
 	//Other possible= side dish, salad, breakfast, soup, sauce, drink
-	//name=title
-
-
 
 	// and selected dishes for the dinner menu
 	var numberOfGuests = 1;
