@@ -91,27 +91,6 @@ var AllDishesView = function (container, model, app) {
 			$(document).find("#all").empty();
 
 			createDishItemHtml(allDishes);
-
-			/*
-			for (var i = 0; i < allDishes.length; i++) { 
-
-				var dishItem = $("<div class='col-sm-4 col-12'>" + 
-									"<div class='col-12 text-center'>" + 
-										"<a>" + 
-											"<img  id='" + allDishes[i].id + "' src='images/"+ allDishes[i].image + "'>" +
-										"</a>" + 
-									"</div>" +
-
-									"<div class='col-12' style='text-align: center;'>" +
-										
-											"<h3>" + allDishes[i].title + "<h3>" +
-												
-									"</div>" +
-								"</div>");
-				$model.find("#all").append(dishItem);
-
-				new DishController(dishItem, allDishes[i].id, app);
-		    }*/
 		}
 	}
 

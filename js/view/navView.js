@@ -30,7 +30,7 @@ var NavView = function(container, model){
 			for(var i = 0; i < dishes.length; i++){
 					var tempDish = dishes[i];
 					leftMenuHtml += '<div class="col-10">' + 
-										tempDish.name + 
+										tempDish.title + 
 									'</div>' + 
 									'<div class="col-2" id="cost">' +
 										model.getTotalDishPrice(tempDish.id)*model.getNumberOfGuests() + 

@@ -106,13 +106,14 @@ var DinnerModel = function() {
 
 	//Returns all the dishes on the menu.
 	this.getFullMenu = function() {
-		var tempDishes = [];
+		/*var tempDishes = [];
 
 		for(key in menu){
 			tempDishes.push(this.getDish(menu[key]));
 		}
 
-		return tempDishes;
+		return tempDishes;*/
+		return menu;
 	}
 
 
@@ -170,10 +171,17 @@ var DinnerModel = function() {
 		return price;
 	}
 
-	//Adds the passed dish to the menu. If the dish of that type already exists on the menu
-	//it is removed from the menu and the new one added.
+	//Adds the passed dish to the menu. 
 	this.addDishToMenu = function(id) {
+		this.getDish(id, function(data){
+			dish = data;
+			menu.push(dish.id);
+			console.log("ID:" + dish.id);
+		}, function(error){
+			console.log("Oups something went wrong!");
+		});
 	
+		/*
 		// get all info about the passed dish
 		var dishToBeAdded = this.getDish(id);
 		var tempMenu = [];
@@ -202,7 +210,7 @@ var DinnerModel = function() {
 		}
 
 		menu = tempMenu;
-
+		*/
 	}
 
 	//Removes dish from menu
