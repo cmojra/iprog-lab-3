@@ -11,20 +11,14 @@ var AllDishesView = function (container, model, app) {
 
 	
 	var loadDishes = function (type, filter){
-		/*
+
 		if (type === "all") {}
-		model.getAllDishes(type, filter, function(data){
+		model.getAllDishes(type, filter, function(dishes){
+			allDishes = dishes;
 			console.log("Got Data");
 		}, function(error){
 			console.log("Didn't work");
 		});
-/*
-		model.getAllDishes(type, filter, function(dishes){
-			allDishes.push(dishes);
-			console.log("Hurra");
-			}, function(error){
-				console.log("Buu");
-			});*/
 
 
 		//	---------- Lab 2 -------------
@@ -51,43 +45,82 @@ var AllDishesView = function (container, model, app) {
 		}*/
 	}
 
+	var createDishItemHtml = function(dishList){
+		for (var i = 0; i < dishList.length; i++) { 
+
+			var dishItem = $("<div class='col-sm-4 col-12'>" + 
+								"<div class='col-12 text-center'>" + 
+									"<a>" + 
+										"<img  id='" + dishList[i].id + "' src='images/"+ dishList[i].image + "'>" +
+									"</a>" + 
+								"</div>" +
+
+								"<div class='col-12' style='text-align: center;'>" +
+									
+										"<h3>" + dishList[i].title + "<h3>" +
+											
+								"</div>" +
+							"</div>");
+			model.find("#all").append(dishItem);
+
+			new DishController(dishItem, dishList[i].id, app);
+			//console.log("Created dish item" + dishList[i].id);
+	    }
+	}
+
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
 	}
 
-	loadDishes();
+	//loadDishes();
 
-	for (var i = 0; i < allDishes.length; i++) { 
+	model.getAllDishes(null, null, function(dishList) {
+		allDishes = dishList;
+		console.log(allDishes);
+	}, function(error){
+		console.log("Didn't work");
+	});
+	
+	if(allDishes.length > 0) {
+		console.log("HTML");
+		for (var i = 0; i < allDishes.length; i++) { 
 
-		var dishItem = $("<div class='col-sm-4 col-12'>" + 
-							"<div class='col-12 text-center'>" + 
-								"<a>" + 
-									"<img  id='" + allDishes[i].id + "' src='images/"+ allDishes[i].image + "'>" +
-								"</a>" + 
-							"</div>" +
+			var dishItem = $("<div class='col-sm-4 col-12'>" + 
+								"<div class='col-12 text-center'>" + 
+									"<a>" + 
+										"<img  id='" + allDishes[i].id + "' src='images/"+ allDishes[i].image + "'>" +
+									"</a>" + 
+								"</div>" +
 
-							"<div class='col-12' style='text-align: center;'>" +
-								
-									"<h3>" + allDishes[i].name + "<h3>" +
-										
-							"</div>" +
-						"</div>");
-		model.find("#all").append(dishItem);
+								"<div class='col-12' style='text-align: center;'>" +
+									
+										"<h3>" + allDishes[i].title + "<h3>" +
+											
+								"</div>" +
+							"</div>");
+			model.find("#all").append(dishItem);
 
-		new DishController(dishItem, allDishes[i].id, app);
-    }
+			new DishController(dishItem, allDishes[i].id, app);
+			//console.log("Created dish item" + dishList[i].id);
+	    }
+			//createDishItemHtml(dishes);
+			console.log(allDishes);
+	}
 
 	this.update = function(model, changeDetails){
 		
 		if (changeDetails === "search") {
 			
-			loadDishes(model.getSelectedType(), model.getSearchValue(), function(){}, function(error){});
+			loadDishes(model.getSelectedType(), model.getSearchValue());
 			
 			model.find("#btnGroupDrop1").empty();
 			model.find("#btnGroupDrop1").append(model.getSelectedType().capitalize());
 
 			model.find("#all").empty();
 
+			//createDishItemHtml(allDishes);
+
+			
 			for (var i = 0; i < allDishes.length; i++) { 
 
 				var dishItem = $("<div class='col-sm-4 col-12'>" + 
@@ -99,7 +132,7 @@ var AllDishesView = function (container, model, app) {
 
 									"<div class='col-12' style='text-align: center;'>" +
 										
-											"<h3>" + allDishes[i].name + "<h3>" +
+											"<h3>" + allDishes[i].title + "<h3>" +
 												
 									"</div>" +
 								"</div>");

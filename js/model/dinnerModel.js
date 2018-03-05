@@ -12,6 +12,9 @@ var DinnerModel = function() {
 	var selectedDishType = "all";
 	var dishSelected = false;
 	var searchValue = "";
+	var dishes = [];
+
+	var API_KEY = "Qu9grxVNWpmshA4Kl9pTwyiJxVGUp1lKzrZjsnghQMkFkfA4LB";
 
 
 	
@@ -111,6 +114,7 @@ var DinnerModel = function() {
 
 		return tempDishes;
 	}
+
 
 	//Returns all ingredients for all the dishes on the menu.
 	this.getAllIngredients = function() {
@@ -222,32 +226,31 @@ var DinnerModel = function() {
 	// gives main courses with "pizza" in search.
 
 	this.getAllDishes = function (type, filter, callback, errorCallback) {
+		var GET_RECIPES_URL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search";
 
-		/* COde from postman: test
-		var settings = {
-			  "async": true,
-			  "crossDomain": true,
-			  "url": "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search",
-			  "method": "GET",
-			  "headers": {
-			    "X-Mashape-Key": "Qu9grxVNWpmshA4Kl9pTwyiJxVGUp1lKzrZjsnghQMkFkfA4LB",
-			    "Cache-Control": "no-cache",
-			    "Postman-Token": "12be5578-b815-4a33-a0d2-43f054978971"
-			  }
+		if(type && type.indexOf("all") == -1){
+			type = type.replace(/ /g, "+"); //ex main course --> main+course. Needed for URL
+			GET_RECIPES_URL += "?type=" + type;
+
+			if(filter){
+				filter = filter.replace(/ /g,"+");
+				GET_RECIPES_URL += "&query=" + filter;
 			}
-
-			$.ajax(settings).done(function (response) {
-			  console.log(response);
-			});
-			*/
-
+		}
+		else if(filter){
+			filter = filter.replace(/ /g,"+");
+			GET_RECIPES_URL += "?query=" + filter;
+		}
 		
 		$.ajax({
-			url: "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/search",
+			url: GET_RECIPES_URL,
 			type: "GET",
-			headers: {'X-Mashape-Key' : "Qu9grxVNWpmshA4Kl9pTwyiJxVGUp1lKzrZjsnghQMkFkfA4LB"},
+			dataType: 'json',
+			headers: {'X-Mashape-Key' : API_KEY},
 			success: function(data){
-				callback(data);
+				dishes = data.results;
+				callback(dishes);
+				//console.log(dishes);
 			},
 			error: function(error){
 				errorCallback(error);
@@ -294,7 +297,7 @@ var DinnerModel = function() {
 		}
 	}
 
-
+/*
 	// the dishes variable contains an array of all the 
 	// dishes in the database. each dish has id, name, type,
 	// image (name of the image file), description and
@@ -544,5 +547,5 @@ var DinnerModel = function() {
 			'price':6
 			}]
 		}
-	];
+	];*/
 }
