@@ -29,15 +29,56 @@ var FoodInfoView = function (container, model) {
 					
 		
 		if (changeDetails === "selectedDishId") {
-			dish = model.getDish(model.getSelectedDishId());
+			model.getDish(model.getSelectedDishId(), function(data){
+				dish = data
+				dishName.html(dish.title);
+				infoImg.html("<img  src='"+ dish.image + "' class='img-fluid' alt='Responsive image'>");
+				infoDescription.html(dish.instructions);
+				infoNumberOfGuests.html(model.getNumberOfGuests());
+			});
 			
-			dishName.html(dish.name);
+			/*dishName.html(dish.name);
 			infoImg.html("<img src='images/"+ dish.image + "' class='img-fluid' alt='Responsive image'>");
 			infoDescription.html(dish.description);
-			infoNumberOfGuests.html(model.getNumberOfGuests());
+			infoNumberOfGuests.html(model.getNumberOfGuests());*/
 		}
 
 		else if (changeDetails === "numberOfGuests") {
+			model.getDish(model.getSelectedDishId(), function(data){
+				dish = data;
+				dishIngredients = dish.extendedIngredients;
+
+				for (var i = 0; i < dishIngredients.length; i++) {
+					recipeHtml +=  	"<div class='container-fluid'>" + 
+										"<div class='row'>" + 
+
+											"<div class='col-4'>" + 
+												dishIngredients[i].amount + " " + 
+												dishIngredients[i].unit + 
+											"</div>" +
+
+											"<div class='col-5'>" + 
+												dishIngredients[i].name + 
+											"</div>" +
+
+											"<div class='col-1 d-none d-md-block'>" + 
+												"SEK" + 
+											"</div>" + 
+											
+											/*
+											"<div class='col-2' style='text-align: right;'>" + 
+												dishIngredients[i].price*model.getNumberOfGuests() + 
+											"</div>" +*/
+
+										"</div>" + 
+									"</div>";
+
+					//totalPrice += dishIngredients[i].price*model.getNumberOfGuests();
+				}
+				recipe.html(recipeHtml);
+			})
+
+			/*
 			dish = model.getDish(model.getSelectedDishId());
 			dishIngredients = dish.ingredients;
 			
@@ -70,6 +111,7 @@ var FoodInfoView = function (container, model) {
 
 			infoTotalPrice.html(totalPrice);
 			recipe.html(recipeHtml);
+			*/
 		}
 
 		

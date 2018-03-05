@@ -81,13 +81,14 @@ var AllDishesView = function (container, model, app) {
 	this.update = function(model, changeDetails){
 		
 		if (changeDetails === "search") {
+			allDishes = []; //ful-hack!
 			
 			loadDishes(model.getSelectedType(), model.getSearchValue());
 			
-			model.find("#btnGroupDrop1").empty();
-			model.find("#btnGroupDrop1").append(model.getSelectedType().capitalize());
+			$(document).find("#btnGroupDrop1").empty();
+			$(document).find("#btnGroupDrop1").append(model.getSelectedType().capitalize());
 
-			model.find("#all").empty();
+			$(document).find("#all").empty();
 
 			createDishItemHtml(allDishes);
 

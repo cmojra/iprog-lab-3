@@ -120,6 +120,7 @@ var DinnerModel = function() {
 	this.getAllIngredients = function() {
 		var ingredientsFinal = [];
 
+		
 		for(key in menu){
 
 			// gets all info about the dish
