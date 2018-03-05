@@ -11,11 +11,11 @@ var AllDishesView = function (container, model, app) {
 
 	
 	var loadDishes = function (type, filter){
+		model.getAllDishes(type, filter, function(dishList){
+			allDishes = dishList;
+			//console.log(allDishes);
+			createDishItemHtml(allDishes);
 
-		if (type === "all") {}
-		model.getAllDishes(type, filter, function(dishes){
-			allDishes = dishes;
-			console.log("Got Data");
 		}, function(error){
 			console.log("Didn't work");
 		});
@@ -51,7 +51,7 @@ var AllDishesView = function (container, model, app) {
 			var dishItem = $("<div class='col-sm-4 col-12'>" + 
 								"<div class='col-12 text-center'>" + 
 									"<a>" + 
-										"<img  id='" + dishList[i].id + "' src='images/"+ dishList[i].image + "'>" +
+										"<img  class='resize' id='" + dishList[i].id + "' src='https://spoonacular.com/recipeImages/"+ dishList[i].image + "'>" +
 									"</a>" + 
 								"</div>" +
 
@@ -61,7 +61,9 @@ var AllDishesView = function (container, model, app) {
 											
 								"</div>" +
 							"</div>");
-			model.find("#all").append(dishItem);
+
+			//TODO: model.find doesnt work?
+			$(document).find("#all").append(dishItem);
 
 			new DishController(dishItem, dishList[i].id, app);
 			//console.log("Created dish item" + dishList[i].id);
@@ -72,40 +74,9 @@ var AllDishesView = function (container, model, app) {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
 	}
 
-	//loadDishes();
+	loadDishes();
+	//console.log(allDishes);
 
-	model.getAllDishes(null, null, function(dishList) {
-		allDishes = dishList;
-		console.log(allDishes);
-	}, function(error){
-		console.log("Didn't work");
-	});
-	
-	if(allDishes.length > 0) {
-		console.log("HTML");
-		for (var i = 0; i < allDishes.length; i++) { 
-
-			var dishItem = $("<div class='col-sm-4 col-12'>" + 
-								"<div class='col-12 text-center'>" + 
-									"<a>" + 
-										"<img  id='" + allDishes[i].id + "' src='images/"+ allDishes[i].image + "'>" +
-									"</a>" + 
-								"</div>" +
-
-								"<div class='col-12' style='text-align: center;'>" +
-									
-										"<h3>" + allDishes[i].title + "<h3>" +
-											
-								"</div>" +
-							"</div>");
-			model.find("#all").append(dishItem);
-
-			new DishController(dishItem, allDishes[i].id, app);
-			//console.log("Created dish item" + dishList[i].id);
-	    }
-			//createDishItemHtml(dishes);
-			console.log(allDishes);
-	}
 
 	this.update = function(model, changeDetails){
 		
@@ -118,9 +89,9 @@ var AllDishesView = function (container, model, app) {
 
 			model.find("#all").empty();
 
-			//createDishItemHtml(allDishes);
+			createDishItemHtml(allDishes);
 
-			
+			/*
 			for (var i = 0; i < allDishes.length; i++) { 
 
 				var dishItem = $("<div class='col-sm-4 col-12'>" + 
@@ -139,7 +110,7 @@ var AllDishesView = function (container, model, app) {
 				$model.find("#all").append(dishItem);
 
 				new DishController(dishItem, allDishes[i].id, app);
-		    }
+		    }*/
 		}
 	}
 
