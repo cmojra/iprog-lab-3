@@ -21,20 +21,25 @@ var FoodInfoView = function (container, model) {
 	var infoTotalPrice = container.find("#infoTotalPrice");
 
 
+
 	this.update = function(model, changeDetails){
 
 		recipeHtml = "";
 		totalPrice = 0;
+		var dishId = model.getSelectedDishId();
 		
 					
 		
 		if (changeDetails === "selectedDishId") {
-			model.getDish(model.getSelectedDishId(), function(data){
+			model.getDish(dishId, function(data){
 				dish = data
 				dishName.html(dish.title);
 				infoImg.html("<img  src='"+ dish.image + "' class='img-fluid' alt='Responsive image'>");
 				infoDescription.html(dish.instructions);
 				infoNumberOfGuests.html(model.getNumberOfGuests());
+				model.addDishToMenu(dishId);
+			}, function(error){
+				console.log("Something went wrong");
 			});
 			
 			/*dishName.html(dish.name);
@@ -44,7 +49,7 @@ var FoodInfoView = function (container, model) {
 		}
 
 		else if (changeDetails === "numberOfGuests") {
-			model.getDish(model.getSelectedDishId(), function(data){
+			model.getDish(dishId, function(data){
 				dish = data;
 				dishIngredients = dish.extendedIngredients;
 

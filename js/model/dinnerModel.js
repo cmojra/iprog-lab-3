@@ -171,12 +171,16 @@ var DinnerModel = function() {
 		return price;
 	}
 
-	//Adds the passed dish to the menu. 
+	//Adds the passed dish to the menu.
+	//TODO: Lab 3 - infoController! updateMenu kallas innan rätten
+	//blivit tillaggd till menu.
+	//?Gör callback i denna funktionen?
 	this.addDishToMenu = function(id) {
 		this.getDish(id, function(data){
 			dish = data;
 			menu.push(dish.id);
-			console.log("ID:" + dish.id);
+			//console.log("ID:" + dish.id);
+			console.log(menu);
 		}, function(error){
 			console.log("Oups something went wrong!");
 		});
