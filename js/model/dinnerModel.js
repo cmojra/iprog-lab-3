@@ -178,7 +178,12 @@ var DinnerModel = function() {
 	this.addDishToMenu = function(id) {
 		this.getDish(id, function(data){
 			dish = data;
-			menu.push(dish.id);
+			menu.push({
+				id: dish.id,
+				title: dish.title,
+				image: dish.image,
+				instructions: dish.instructions
+			});
 			//console.log("ID:" + dish.id);
 			console.log(menu);
 		}, function(error){

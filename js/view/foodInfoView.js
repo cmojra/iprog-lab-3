@@ -37,7 +37,7 @@ var FoodInfoView = function (container, model) {
 				infoImg.html("<img  src='"+ dish.image + "' class='img-fluid' alt='Responsive image'>");
 				infoDescription.html(dish.instructions);
 				infoNumberOfGuests.html(model.getNumberOfGuests());
-				model.addDishToMenu(dishId);
+				//model.addDishToMenu(dishId);
 			}, function(error){
 				console.log("Something went wrong");
 			});

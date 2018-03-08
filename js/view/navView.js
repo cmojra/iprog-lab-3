@@ -18,7 +18,6 @@ var NavView = function(container, model){
 
 	this.update = function(model, changeDetails){
 
-	var dishes = model.getFullMenu();
 	leftMenuHtml = "";
 
 		if (changeDetails === "numberOfGuests") {
@@ -26,11 +25,12 @@ var NavView = function(container, model){
 		}
 
 		else if(changeDetails === "menu"){
+			var dishes = model.getFullMenu();
 			numberOfGuests.html(model.getNumberOfGuests);
 			for(var i = 0; i < dishes.length; i++){
 					//var tempDish = dishes[i];
 					leftMenuHtml += '<div class="col-10">' + 
-										dishes.title + 
+										dishes[i].title + 
 									'</div>' + 
 									'<div class="col-2" id="cost">' +
 										1400 +//model.getTotalDishPrice(tempDish.id)*model.getNumberOfGuests() + 
