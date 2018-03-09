@@ -1,11 +1,28 @@
 var AllDishesView = function (container, model, app) {
 
 	
-	this.startersButton = container.find("#startersButton");
-	this.mainDishButton = container.find("#mainDishButton");
+	this.appetizerButton = container.find("#appetizerButton");
+	this.mainCourseButton = container.find("#mainCourseButton");
 	this.dessertButton = container.find("#dessertButton");
-	this.allButton = container.find("#allButton");
-	this.searchBox  = container.find("#searchText");
+	this.allButton = container.find("#allButton"); //save
+	this.searchBox  = container.find("#searchText"); //save
+
+	/*TODO: error: "dropdown_menu is not defined"
+	¨Fix so all dropdowns are clickable.
+
+	this.dropdownMenu = container.find(".dropdown-menu");
+	var dish_types = model.getAllDishTypes();
+
+	for(var i = 0; i < dish_types.length; i++){
+		var a = document.createElement('a');
+		a.id = dish_types[i].trim() + "Button";
+		a.text = dish_types[i]
+		a.class = "dropdown-item";
+
+		dropdown_menu.add(a, 0);
+	}*/
+
+
 
 	var allDishes = [];
 

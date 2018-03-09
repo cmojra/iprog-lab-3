@@ -28,17 +28,18 @@ var NavView = function(container, model){
 			var dishes = model.getFullMenu();
 			numberOfGuests.html(model.getNumberOfGuests);
 			for(var i = 0; i < dishes.length; i++){
-					//var tempDish = dishes[i];
+
+					console.log(dishes[i]);
 					leftMenuHtml += '<div class="col-10">' + 
 										dishes[i].title + 
 									'</div>' + 
 									'<div class="col-2" id="cost">' +
-										1400 +//model.getTotalDishPrice(tempDish.id)*model.getNumberOfGuests() + 
+										model.getDishPrice(dishes[i])*model.getNumberOfGuests() + 
 									'</div>';
 				}
 			leftMenu.html(leftMenuHtml);
-			totalPrice.html("SEK: " + /*model.getTotalMenuPrice()*/0);
-			totalPriceNav.html("<h4>SEK " + /*model.getTotalMenuPrice()*/0 + "</h4>");
+			totalPrice.html("SEK: " + model.getTotalMenuPrice());
+			totalPriceNav.html("<h4>SEK " + model.getTotalMenuPrice() + "</h4>");
 		}
 	}
 

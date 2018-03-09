@@ -1,10 +1,10 @@
 var SearchController = function (view, model, app) {
 
-	view.startersButton.click(function(){
+	view.appetizerButton.click(function(){
 		model.setSelectedType("appetizer");
 	});
 
-	view.mainDishButton.click(function(){
+	view.mainCourseButton.click(function(){
 		model.setSelectedType("main course");
 	});
 

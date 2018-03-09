@@ -7,12 +7,14 @@ var DinnerModel = function() {
 
 	// and selected dishes for the dinner menu
 	var numberOfGuests = 1;
-	var menu = []; //this stores only id's of dishes in our current menu
+	var menu = [];
 	var observers = [];
 	var selectedDishType = "all";
 	var dishSelected = false;
 	var searchValue = "";
+	var thisDish = [];
 	var dishes = [];
+	var dish_types = ["appetizer", "breakfast", "main course", "side dish", "salad", "soup", "dessert", "sauce", "drink"];
 
 	var API_KEY = "Qu9grxVNWpmshA4Kl9pTwyiJxVGUp1lKzrZjsnghQMkFkfA4LB";
 
@@ -106,46 +108,44 @@ var DinnerModel = function() {
 
 	//Returns all the dishes on the menu.
 	this.getFullMenu = function() {
-		/*var tempDishes = [];
 
-		for(key in menu){
-			tempDishes.push(this.getDish(menu[key]));
-		}
-
-		return tempDishes;*/
 		return menu;
 	}
 
+	//Return all possible dish types. (Except "All")
+	this.getAllDishTypes = function() {
 
+		return dish_types;
+	}
+
+	//Lab 3
 	//Returns all ingredients for all the dishes on the menu.
 	this.getAllIngredients = function() {
 		var ingredientsFinal = [];
 
 		
-		for(key in menu){
-
-			// gets all info about the dish
-			var tempDish = this.getDish(menu[key]);
+		for(var i = 0; i < menu.length; i++){
 
 			// ceates a list of the dishes ingredients
-			var tempIngList = tempDish.ingredients;
+			var tempIngList = menu.extendedIngredients;
 
 			// gets every ingredient from the list and adds it to the list that is returned
-			for(ingredient in tempIngList){
-				ingredientsFinal.push(tempIngList[ingredient]);
+			for(var j = 0; j < tempIngList.length; j++){
+				ingredientsFinal.push(tempIngList[j]);
 			}
 		}
 
 		return ingredientsFinal;
 	}
 
-	//Returns the total price of the menu (all the ingredients multiplied by number of guests).
+	//Lab 3
+	//Returns the total price of the menu.
 	this.getTotalMenuPrice = function() {
 		var price = 0;
-		var tempIngList = this.getAllIngredients();
+		var tempMenuList = this.getFullMenu();
 
-		for(ingredient in tempIngList){
-			price += tempIngList[ingredient].price;
+		for(var i = 0; i < tempMenuList.length; i++){
+			price += Math.round(tempMenuList[i].price);
 		}
 
 		price *= this.getNumberOfGuests();
@@ -153,75 +153,29 @@ var DinnerModel = function() {
 		return price;
 	}
 
-	//TODO: fix for lab3
-	this.getTotalDishPrice = function (id) {
-
-		var price = 0;
-		// gets all info about the dish
-			var tempDish = this.getDish(id);
-
-			// ceates a list of the dishes ingredients
-			var tempIngList = tempDish.ingredients;
-
-		for(ingredient in tempIngList){
-
-			price += tempIngList[ingredient].price;
-		}
-
-		return price;
+	//Lab3
+	this.getDishPrice = function (dish) {
+		return Math.round(dish.price);
 	}
 
 	//Adds the passed dish to the menu.
-	//TODO: Lab 3 - infoController! updateMenu kallas innan rätten
-	//blivit tillaggd till menu.
-	//?Gör callback i denna funktionen?
+	//Lab 3
 	this.addDishToMenu = function(id) {
-		this.getDish(id, function(data){
-			dish = data;
+		//console.log(thisDish);
+		if(thisDish.id == id){
 			menu.push({
-				id: dish.id,
-				title: dish.title,
-				image: dish.image,
-				instructions: dish.instructions
+				id: thisDish.id,
+				title: thisDish.title,
+				image: thisDish.image,
+				ingredients: thisDish.extendedIngredients,
+				instructions: thisDish.instructions,
+				price: thisDish.pricePerServing,
+				servings: thisDish.servings
 			});
-			//console.log("ID:" + dish.id);
-			console.log(menu);
-		}, function(error){
-			console.log("Oups something went wrong!");
-		});
-	
-		/*
-		// get all info about the passed dish
-		var dishToBeAdded = this.getDish(id);
-		var tempMenu = [];
-		var typeSwapped = false;
-
-		// loop through menu 
-		for(key in menu){
-
-			var tempDish = this.getDish(menu[key]);
-			
-			// if dish types dont match add the current menu item to temp menu
-			if(tempDish.type !== dishToBeAdded.type){
-				tempMenu.push(tempDish.id);
-			}
-
-			// if dish types match, swap current menu item for new
-			if(tempDish.type === dishToBeAdded.type){
-				tempMenu.push(dishToBeAdded.id);
-				typeSwapped = true;
-			}
 		}
-
-		// if nothing has been swapped add dish to menu
-		if (!typeSwapped) {
-			tempMenu.push(dishToBeAdded.id);
-		}
-
-		menu = tempMenu;
-		*/
 	}
 
+	//TODO Lab 3
 	//Removes dish from menu
 	this.removeDishFromMenu = function(id) {
 		var tempMenu = [];
@@ -248,13 +202,18 @@ var DinnerModel = function() {
 			type = type.replace(/ /g, "+"); //ex main course --> main+course. Needed for URL
 			GET_RECIPES_URL += "?type=" + type;
 
+			//TODO Lab 3 - FIlter doesn't work this way. change to interact per letter
 			if(filter){
-				filter = filter.replace(/ /g,"+");
+				//if(filter.includes(" ")){
+				//	filter = filter.replace(/ /g,"+");
+				//}
 				GET_RECIPES_URL += "&query=" + filter;
 			}
 		}
 		else if(filter){
-			filter = filter.replace(/ /g,"+");
+			//if(filter.includes(" ")){
+			//	filter = filter.replace(/ /g,"+");
+			//}
 			GET_RECIPES_URL += "?query=" + filter;
 		}
 		
@@ -273,36 +232,8 @@ var DinnerModel = function() {
 			}
 		});
 	}
-	  
-	/* Fr Lab 1/2
-	  return dishes.filter(function(dish) {
-		var found = true;
-		if(filter){
-			found = false;
-			dish.ingredients.forEach(function(ingredient) {
-				if(ingredient.name.indexOf(filter)!=-1) {
-					found = true;
-				}
-			});
-			if(dish.name.indexOf(filter) != -1)
-			{
-				found = true;
-			}
-		}
-	  	return dish.type == type && found;
-	  });	*/
 
-
-	//function that returns a dish of specific ID
-	/*result
-	{... "servings": 4,
-		"extendedIngredients": [{"id":xxx, ..., "name":"soy sauce", ..., "amount":2, "unit":"teaspoon"}, {...}, {...}],
-		"id": 479101,
-		"title": "nameOfDish",
-		"image": "jfjf.jpg",
-		"instructions": "..."
-	}
-	*/
+	//Gets dish with ID via API
 	this.getDish = function (id, callback, errorCallback) {
 
 		var GET_RECIPE_INFO = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/"+ id +"/information";
@@ -313,19 +244,12 @@ var DinnerModel = function() {
 			dataType: 'json',
 			headers: {'X-Mashape-Key': API_KEY},
 			success: function(data){
-				dish = data;
-				callback(dish);
+				thisDish = data;
+				callback(thisDish);
 			},
 			error: function(error){
 				errorCallback(error);
 			}
 		});
-
-		/* Lab 1-2
-	  for(key in dishes){
-			if(dishes[key].id == id) {
-				return dishes[key];
-			}
-		}*/
 	}
 }

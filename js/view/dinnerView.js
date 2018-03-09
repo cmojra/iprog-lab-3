@@ -25,13 +25,13 @@ var DinnerView = function(container, model){
 
 				menuHtml += "<div class='col-md-3 col-12'>" + 
 								"<div class='text-center'>" +
-									"<img src='images/"+ tempDish.image + "'>" +
+									"<img class='resize' src='"+ tempDish.image + "'>" +
 								"</div>" + 
 								"<div class='text-center'>" +
-									"<h3>" + tempDish.name + "</h3>" + 
+									"<h3>" + tempDish.title + "</h3>" + 
 								"</div>" + 
 								"<div class='text-center'>" +
-									"<h5>" + model.getTotalDishPrice(tempDish.id)*model.getNumberOfGuests() + " SEK</h5>" + 
+									"<h5>" + Math.round(tempDish.price)*model.getNumberOfGuests() + " SEK</h5>" + 
 								"</div>" + 
 							"</div>";
 			}

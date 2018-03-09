@@ -28,7 +28,7 @@ var PrintView = function(container, model){
 									"</div>" +
 
 									"<div class='col-12 col-md-4' id='margin'>" + 
-										"<h3>" + tempDish.name + "</h3>" + 
+										"<h3>" + tempDish.title + "</h3>" + 
 										"<h6>" + tempDish.description + "</h6>" + 
 									"</div>" +
 
