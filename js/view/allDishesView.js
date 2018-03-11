@@ -1,28 +1,31 @@
 var AllDishesView = function (container, model, app) {
 
 	
-	this.appetizerButton = container.find("#appetizerButton");
-	this.mainCourseButton = container.find("#mainCourseButton");
-	this.dessertButton = container.find("#dessertButton");
+	//this.appetizerButton = container.find("#appetizerButton");
+	//this.mainCourseButton = container.find("#mainCourseButton");
+	//this.dessertButton = container.find("#dessertButton");
 	this.allButton = container.find("#allButton"); //save
 	this.searchBox  = container.find("#searchText"); //save
+	//this.dropDown = container.find("#btnGroupDrop1"); <-- can't be found?
+	
 
-	/*TODO: error: "dropdown_menu is not defined"
-	¨Fix so all dropdowns are clickable.
-
-	this.dropdownMenu = container.find(".dropdown-menu");
 	var dish_types = model.getAllDishTypes();
 
+	//HTML for drop-down menu with all dishtypes
+	//Option, a or button?
 	for(var i = 0; i < dish_types.length; i++){
-		var a = document.createElement('a');
-		a.id = dish_types[i].trim() + "Button";
-		a.text = dish_types[i]
-		a.class = "dropdown-item";
+		var option = document.createElement('option');
+		var name = dish_types[i].replace(/\s+/g, '') + "Button";
 
-		dropdown_menu.add(a, 0);
-	}*/
+		option.type = "button";
+		option.className = "dropdown-item";
+		option.value = name;
+		option.innerHTML = dish_types[i];
+		
+		allButton.after(option);
 
-
+		this.name = container.find("#name");
+	}
 
 	var allDishes = [];
 
@@ -38,28 +41,6 @@ var AllDishesView = function (container, model, app) {
 		});
 
 
-		//	---------- Lab 2 -------------
-		/*allDishes = model.getAllDishes("starter", filter);
-		var mainDish = model.getAllDishes("main dish", filter);
-		for (var i = 0; i < mainDish.length; i++) {
-			allDishes.push(mainDish[i]);
-		}
-		var dessert = model.getAllDishes("dessert", filter);
-		for (var i = 0; i < dessert.length; i++) {
-			allDishes.push(dessert[i]);
-		}
-
-		if (type === "starter") {
-			allDishes = model.getAllDishes("starter", filter);
-		}
-
-		if (type === "main dish") {
-			allDishes = model.getAllDishes("main dish", filter);
-		}
-
-		if (type === "dessert") {
-			allDishes = model.getAllDishes("dessert", filter);
-		}*/
 	}
 
 	var createDishItemHtml = function(dishList){

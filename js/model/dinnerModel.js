@@ -16,8 +16,6 @@ var DinnerModel = function() {
 	var dishes = [];
 	var dish_types = ["appetizer", "breakfast", "main course", "side dish", "salad", "soup", "dessert", "sauce", "drink"];
 
-	var API_KEY = "Qu9grxVNWpmshA4Kl9pTwyiJxVGUp1lKzrZjsnghQMkFkfA4LB";
-
 
 	
 	// Lab 2: views calls this to add an observer
@@ -204,16 +202,16 @@ var DinnerModel = function() {
 
 			//TODO Lab 3 - FIlter doesn't work this way. change to interact per letter
 			if(filter){
-				//if(filter.includes(" ")){
-				//	filter = filter.replace(/ /g,"+");
-				//}
+				if(filter.includes(" ")){
+					filter = filter.replace(/ /g,"+");
+				}
 				GET_RECIPES_URL += "&query=" + filter;
 			}
 		}
 		else if(filter){
-			//if(filter.includes(" ")){
-			//	filter = filter.replace(/ /g,"+");
-			//}
+			if(filter.includes(" ")){
+				filter = filter.replace(/ /g,"+");
+			}
 			GET_RECIPES_URL += "?query=" + filter;
 		}
 		
