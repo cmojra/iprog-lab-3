@@ -1,12 +1,16 @@
 var AllDishesView = function (container, model, app) {
 
 	
-	//this.appetizerButton = container.find("#appetizerButton");
-	//this.mainCourseButton = container.find("#mainCourseButton");
-	//this.dessertButton = container.find("#dessertButton");
 	this.allButton = container.find("#allButton"); //save
 	this.searchBox  = container.find("#searchText"); //save
-	//this.dropDown = container.find("#btnGroupDrop1"); <-- can't be found?
+
+	this.appetizerButton = container.find("#appetizerButton");
+	this.mainCourseButton = container.find("#maincourseButton");
+	this.dessertButton = container.find("#dessertButton");
+	//this.dropDown = container.find("#btnGroupDrop1"); //<-- not working! get undefined error
+
+	divLoader = container.find("#all");
+	console.log(divLoader);
 	
 
 	var dish_types = model.getAllDishTypes();
@@ -14,20 +18,24 @@ var AllDishesView = function (container, model, app) {
 	//HTML for drop-down menu with all dishtypes
 	//Option, a or button?
 	for(var i = 0; i < dish_types.length; i++){
-		var option = document.createElement('option');
+		var a = document.createElement('a');
 		var name = dish_types[i].replace(/\s+/g, '') + "Button";
 
-		option.type = "button";
-		option.className = "dropdown-item";
-		option.value = name;
-		option.innerHTML = dish_types[i];
+		//option.type = "button";
+		//option.className = "dropdown-item";
+		a.className = "dropdown-item";
+		a.type = "button";
+		a.id = name;
+		a.innerHTML = dish_types[i];
 		
-		allButton.after(option);
+		allButton.after(a);
 
-		this.name = container.find("#name");
+		//this.name = container.find("#" + name);
+
 	}
 
 	var allDishes = [];
+//	console.log(appetizerButton);
 
 	
 	var loadDishes = function (type, filter){
@@ -35,6 +43,9 @@ var AllDishesView = function (container, model, app) {
 			allDishes = dishList;
 			//console.log(allDishes);
 			createDishItemHtml(allDishes);
+			divLoader.removeClass("loader");
+			console.log(divLoader);
+			//divLoader.css("display", "none");
 
 		}, function(error){
 			console.log("Didn't work");
@@ -77,18 +88,22 @@ var AllDishesView = function (container, model, app) {
 
 
 	this.update = function(model, changeDetails){
-		
+		//divLoader.css("display", "block");
 		if (changeDetails === "search") {
+			divLoader.addClass("loader");
 			allDishes = []; //ful-hack!
-			
+			//divLoader.css("display", "block")
 			loadDishes(model.getSelectedType(), model.getSearchValue());
 			
+			//TODO - Model.find doesn't work
 			$(document).find("#btnGroupDrop1").empty();
 			$(document).find("#btnGroupDrop1").append(model.getSelectedType().capitalize());
 
 			$(document).find("#all").empty();
 
-			createDishItemHtml(allDishes);
+			//createDishItemHtml(allDishes);
+			//divLoader.css("display", "none")
+
 		}
 	}
 

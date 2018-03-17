@@ -22,12 +22,16 @@ var FoodInfoView = function (container, model) {
 	var numberOfGuests = container.find("#numberOfGuests");
 	numberOfGuests.html(model.getNumberOfGuests);
 
+	//TODO: addCLass("loader")
+	//En för id="info" och en för id="recipe"
+	// Både ligger under #foodInfoView
 
 
 	this.update = function(model, changeDetails){
 
 		recipeHtml = "";
 		totalPrice = 0;
+		//divLoader.addClass("loader");
 		var dishId = model.getSelectedDishId();
 		
 					
@@ -39,6 +43,7 @@ var FoodInfoView = function (container, model) {
 				infoImg.html("<img  src='"+ dish.image + "' class='img-fluid' alt='Responsive image'>");
 				infoDescription.html(dish.instructions);
 				infoNumberOfGuests.html(model.getNumberOfGuests());
+				//divLoader.removeClass("loader");
 			}, function(error){
 				console.log("Something went wrong");
 			});
@@ -53,11 +58,11 @@ var FoodInfoView = function (container, model) {
 				dishIngredients = dish.extendedIngredients;
 
 				for (var i = 0; i < dishIngredients.length; i++) {
-					var amount = (dishIngredients[i].amount / dish.servings)*model.getNumberOfGuests();
+					var amount = ((dishIngredients[i].amount / dish.servings).toFixed(4))*model.getNumberOfGuests();
 					recipeHtml +=  	"<div class='container-fluid'>" + 
 										"<div class='row'>" + 
 
-											"<div class='col-4'>" + 
+											"<div class='col-5'>" + 
 												amount + " " + 
 												dishIngredients[i].unit + 
 											"</div>" +

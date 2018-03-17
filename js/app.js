@@ -55,7 +55,9 @@ $(function() {
 	this.showAllDishesView = function(){
 		hideAllViews();
 		var div = document.getElementById("allDishesView");
+		//var div2 = document.getElementById("all");
 		div.style.display = "block";
+		//div2.style.display = "block";
 
 		var div = document.getElementById("leftContainer");
 		div.style.display = "block";
@@ -86,6 +88,12 @@ $(function() {
 		hideAllViews();
 		var div = document.getElementById("printView");
 		div.style.display = "block";
+	}
+	
+	this.setLoader = function(string){
+		var div = document.getElementById("all");
+		//console.log()
+		div.style.display = string;
 	}
 
 	/**

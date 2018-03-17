@@ -12,12 +12,44 @@ var SearchController = function (view, model, app) {
 		model.setSelectedType("dessert");
 	});
 
+
+	//var currentType = model.getSelectedType().replace(/\s+/g, '') + "Button";
+	
 	view.allButton.click(function(){
 		model.setSelectedType("all");
 	});
 
-	view.searchBox.keyup(function(){
-		model.search(view.searchBox).val()
-	});
-	
+	/*
+	$("#" + currentType).click(function(){
+		model.setSelectedType(currentType);
+		console.log(currentType)
+	})
+	view.dropDown.click(function(){
+		var selected_type = view.dropDown.text;
+		model.setSelectedType(selected_type);
+	})*/
+	//console.log(view.dropDown);
+
+	view.searchBox.on('keyup', function(e){
+		if(e.keyCode==13){
+			model.search(view.searchBox.val());
+		}
+	});	
 }
+
+/*view.searchDish.click(function() {
+		var search_input = view.searchText.value;
+		var search_category = view.search_dropdown.value;
+
+		//var filtered_dishes = model.getAllDishesType(search_category,search_input);		
+		view.loading.addClass('spinner');
+		model.getAllDishes(search_input, search_category, function(dishes){
+		 	state_controller.reloadDishItemView(dishes);
+		 	view.loading.removeClass('spinner');
+		}, function(error) {
+			 alert("Woops no recipe found!");
+			 view.loading.removeClass('spinner');
+		});   
+		
+
+});*/

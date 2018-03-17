@@ -136,6 +136,12 @@ var DinnerModel = function() {
 		return ingredientsFinal;
 	}
 
+	//Lab3
+	//Return price for 1 serving of the dish
+	this.getDishPrice = function (dish) {
+		return Math.round(dish.price/dish.servings);
+	}
+
 	//Lab 3
 	//Returns the total price of the menu.
 	this.getTotalMenuPrice = function() {
@@ -143,17 +149,12 @@ var DinnerModel = function() {
 		var tempMenuList = this.getFullMenu();
 
 		for(var i = 0; i < tempMenuList.length; i++){
-			price += Math.round(tempMenuList[i].price);
+			price += Math.round(tempMenuList[i].price/tempMenuList[i].servings);
 		}
 
 		price *= this.getNumberOfGuests();
 
 		return price;
-	}
-
-	//Lab3
-	this.getDishPrice = function (dish) {
-		return Math.round(dish.price);
 	}
 
 	//Adds the passed dish to the menu.
@@ -173,7 +174,7 @@ var DinnerModel = function() {
 		}
 	}
 
-	//TODO Lab 3
+	//TODO
 	//Removes dish from menu
 	this.removeDishFromMenu = function(id) {
 		var tempMenu = [];
@@ -200,7 +201,7 @@ var DinnerModel = function() {
 			type = type.replace(/ /g, "+"); //ex main course --> main+course. Needed for URL
 			GET_RECIPES_URL += "?type=" + type;
 
-			//TODO Lab 3 - FIlter doesn't work this way. change to interact per letter
+			//TODO Lab 3
 			if(filter){
 				if(filter.includes(" ")){
 					filter = filter.replace(/ /g,"+");
@@ -209,6 +210,7 @@ var DinnerModel = function() {
 			}
 		}
 		else if(filter){
+			//console.log(filter)
 			if(filter.includes(" ")){
 				filter = filter.replace(/ /g,"+");
 			}
