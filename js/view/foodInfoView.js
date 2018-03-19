@@ -22,9 +22,7 @@ var FoodInfoView = function (container, model) {
 	var numberOfGuests = container.find("#numberOfGuests");
 	numberOfGuests.html(model.getNumberOfGuests);
 
-	//TODO: addCLass("loader")
-	//En för id="info" och en för id="recipe"
-	// Både ligger under #foodInfoView
+	//Resets info after we leave foodInfoView, so we 
 	this.resetInfo = function(){
 		recipe.empty();
 		dishName.empty();
@@ -41,12 +39,12 @@ var FoodInfoView = function (container, model) {
 		totalPrice = 0;
 		//container.addClass("loader");
 		infoImg.addClass("loader");
-		recipe.addClass("loader");
 		var dishId = model.getSelectedDishId();
 		
 					
 		
 		if (changeDetails === "selectedDishId") {
+			recipe.addClass("loader");
 			model.getDish(dishId, function(data){
 				dish = data
 				dishName.html(dish.title);

@@ -4,34 +4,30 @@ var AllDishesView = function (container, model, app) {
 	this.allButton = container.find("#allButton"); //save
 	this.searchBox  = container.find("#searchText"); //save
 
-	this.appetizerButton = container.find("#appetizerButton");
-	this.mainCourseButton = container.find("#maincourseButton");
-	this.dessertButton = container.find("#dessertButton");
-	this.dropDown = container.find("#searchArea .dropdown-menu");
-	 //<-- not working! get undefined error
+	this.dropDown = $(document).find("#btnGroupDrop1"); //<-- container.find not working?
+	//console.log(dropDown);
 
-	divLoader = container.find("#all");
-	//console.log(divLoader);
-	
+	divLoader = container.find("#all");	
 
 	var dish_types = model.getAllDishTypes();
 
+	String.prototype.capitalize = function() {
+	    return this.charAt(0).toUpperCase() + this.slice(1);
+	}
+
 	//HTML for drop-down menu with all dishtypes
-	//Option, a or button?
 	for(var i = 0; i < dish_types.length; i++){
-		var a = document.createElement('a');
+		var option = document.createElement('option');
 		var name = dish_types[i].replace(/\s+/g, '') + "Button";
 
-		a.className = "dropdown-item";
-		a.type = "button";
-		a.id = name;
-		a.innerHTML = dish_types[i];
+		option.id = name;
+		option.innerHTML = dish_types[i].capitalize();
 		
-		allButton.after(a);
-
-		//this.name = container.find("#" + name);
+		allButton.after(option);
 
 	}
+
+
 
 	var allDishes = [];
 //	console.log(appetizerButton);
@@ -72,34 +68,23 @@ var AllDishesView = function (container, model, app) {
 			$(document).find("#all").append(dishItem);
 
 			new DishController(dishItem, dishList[i].id, app);
-			//console.log("Created dish item" + dishList[i].id);
 	    }
 	}
 
-	String.prototype.capitalize = function() {
-	    return this.charAt(0).toUpperCase() + this.slice(1);
-	}
 
 	loadDishes();
 	//console.log(allDishes);
 
 
 	this.update = function(model, changeDetails){
-		//divLoader.css("display", "block");
 		if (changeDetails === "search") {
 			divLoader.addClass("loader");
-			allDishes = []; //ful-hack!
-			//divLoader.css("display", "block")
+			allDishes = [];
 			loadDishes(model.getSelectedType(), model.getSearchValue());
-			
-			//TODO - Model.find doesn't work
-			$(document).find("#btnGroupDrop1").empty();
-			$(document).find("#btnGroupDrop1").append(model.getSelectedType().capitalize());
 
+			//TODO - Model.find doesn't work?
 			$(document).find("#all").empty();
 
-			//createDishItemHtml(allDishes);
-			//divLoader.css("display", "none")
 
 		}
 	}

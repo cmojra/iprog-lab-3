@@ -31,7 +31,7 @@ var DinnerView = function(container, model){
 									"<h3>" + tempDish.title + "</h3>" + 
 								"</div>" + 
 								"<div class='text-center'>" +
-									"<h5>" + Math.round(tempDish.price)*model.getNumberOfGuests() + " SEK</h5>" + 
+									"<h5>" + Math.round(tempDish.price/tempDish.servings)*model.getNumberOfGuests() + " SEK</h5>" + 
 								"</div>" + 
 							"</div>";
 			}
