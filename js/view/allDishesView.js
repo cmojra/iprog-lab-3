@@ -7,7 +7,7 @@ var AllDishesView = function (container, model, app) {
 	this.dropDown = $(document).find("#btnGroupDrop1"); //<-- container.find not working?
 	//console.log(dropDown);
 
-	divLoader = container.find("#all");	
+	var divLoader = container.find("#all");	
 
 	var dish_types = model.getAllDishTypes();
 
@@ -78,6 +78,7 @@ var AllDishesView = function (container, model, app) {
 
 	this.update = function(model, changeDetails){
 		if (changeDetails === "search") {
+			//$(document).find("#searchText").empty();
 			divLoader.addClass("loader");
 			allDishes = [];
 			loadDishes(model.getSelectedType(), model.getSearchValue());

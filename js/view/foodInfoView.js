@@ -7,6 +7,7 @@ var FoodInfoView = function (container, model) {
 	var recipe = container.find("#recipe");
 	
 	var dish = ""
+	var dishId = "";
 	
 	var infoHtml = "";
 	var recipeHtml = "";
@@ -38,12 +39,13 @@ var FoodInfoView = function (container, model) {
 		recipeHtml = "";
 		totalPrice = 0;
 		//container.addClass("loader");
-		infoImg.addClass("loader");
-		var dishId = model.getSelectedDishId();
-		
-					
+			
 		
 		if (changeDetails === "selectedDishId") {
+
+			dishId = model.getSelectedDishId();
+
+			infoImg.addClass("loader");
 			recipe.addClass("loader");
 			model.getDish(dishId, function(data){
 				dish = data
@@ -63,6 +65,7 @@ var FoodInfoView = function (container, model) {
 
 		else if (changeDetails === "numberOfGuests") {
 			numberOfGuests.html(model.getNumberOfGuests);
+			dishId = model.getSelectedDishId();
 
 			model.getDish(dishId, function(data){
 				dish = data;
