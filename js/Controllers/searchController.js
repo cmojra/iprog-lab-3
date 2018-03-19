@@ -12,7 +12,9 @@ var SearchController = function (view, model, app) {
 		model.setSelectedType("dessert");
 	});
 
-
+	view.dropDown.click(function(){
+		console.log(dropDown);
+	})
 	//var currentType = model.getSelectedType().replace(/\s+/g, '') + "Button";
 	
 	view.allButton.click(function(){
@@ -33,6 +35,7 @@ var SearchController = function (view, model, app) {
 	view.searchBox.on('keyup', function(e){
 		if(e.keyCode==13){
 			model.search(view.searchBox.val());
+			view.searchbox.empty();
 		}
 	});	
 }

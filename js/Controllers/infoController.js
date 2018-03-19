@@ -4,12 +4,14 @@ var InfoController = function (view, model, app) {
 
 		model.addDishToMenu(model.getSelectedDishId());
 		model.updateMenu();
+		view.resetInfo();
 		app.showAllDishesView();
 	});
 
 	
 
 	view.backBtn.click(function(){
+		view.resetInfo();
 		app.showAllDishesView();
 	});
 

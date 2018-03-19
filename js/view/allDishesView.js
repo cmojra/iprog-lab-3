@@ -7,10 +7,11 @@ var AllDishesView = function (container, model, app) {
 	this.appetizerButton = container.find("#appetizerButton");
 	this.mainCourseButton = container.find("#maincourseButton");
 	this.dessertButton = container.find("#dessertButton");
-	//this.dropDown = container.find("#btnGroupDrop1"); //<-- not working! get undefined error
+	this.dropDown = container.find("#searchArea .dropdown-menu");
+	 //<-- not working! get undefined error
 
 	divLoader = container.find("#all");
-	console.log(divLoader);
+	//console.log(divLoader);
 	
 
 	var dish_types = model.getAllDishTypes();
@@ -21,8 +22,6 @@ var AllDishesView = function (container, model, app) {
 		var a = document.createElement('a');
 		var name = dish_types[i].replace(/\s+/g, '') + "Button";
 
-		//option.type = "button";
-		//option.className = "dropdown-item";
 		a.className = "dropdown-item";
 		a.type = "button";
 		a.id = name;
@@ -44,8 +43,6 @@ var AllDishesView = function (container, model, app) {
 			//console.log(allDishes);
 			createDishItemHtml(allDishes);
 			divLoader.removeClass("loader");
-			console.log(divLoader);
-			//divLoader.css("display", "none");
 
 		}, function(error){
 			console.log("Didn't work");
@@ -66,7 +63,7 @@ var AllDishesView = function (container, model, app) {
 
 								"<div class='col-12' style='text-align: center;'>" +
 									
-										"<h3>" + dishList[i].title + "<h3>" +
+										"<h6 class='ellipsis'>" + dishList[i].title + "<h6>" +
 											
 								"</div>" +
 							"</div>");
