@@ -45,7 +45,7 @@ var FoodInfoView = function (container, model) {
 
 			dishId = model.getSelectedDishId();
 
-			infoImg.addClass("loader");
+			dishName.addClass("loader");
 			recipe.addClass("loader");
 			model.getDish(dishId, function(data){
 				dish = data
@@ -55,7 +55,7 @@ var FoodInfoView = function (container, model) {
 				infoNumberOfGuests.html(model.getNumberOfGuests());
 				recipe.removeClass("loader");
 				//container.removeClass("loader");
-				infoImg.removeClass("loader");
+				dishName.removeClass("loader");
 				
 			}, function(error){
 				console.log("Something went wrong");

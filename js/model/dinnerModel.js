@@ -58,9 +58,12 @@ var DinnerModel = function() {
 		this.notifyObservers("menu");
 	}
 
-	this.search = function(value){
-		searchValue = value;
+	this.search = function(){
 		this.notifyObservers("search");
+	}
+
+	this.setQuery = function(value){
+		searchValue = value;
 	}
 
 	this.getSearchValue = function(){
@@ -227,6 +230,7 @@ var DinnerModel = function() {
 				//console.log(dishes);
 			},
 			error: function(error){
+				alert("API could not be reached. We are sorry\n Please try again soon!");
 				errorCallback(error);
 			}
 		});
@@ -247,6 +251,7 @@ var DinnerModel = function() {
 				callback(thisDish);
 			},
 			error: function(error){
+				alert("API could not be reached. We are sorry\n Please try again soon!");
 				errorCallback(error);
 			}
 		});

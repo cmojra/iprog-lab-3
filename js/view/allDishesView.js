@@ -4,12 +4,13 @@ var AllDishesView = function (container, model, app) {
 	this.allButton = container.find("#allButton"); //save
 	this.searchBox  = container.find("#searchText"); //save
 
-	this.dropDown = $(document).find("#btnGroupDrop1"); //<-- container.find not working?
-	//console.log(dropDown);
+	this.dropDown = container.find("#btnGroupDrop1"); //<-- container.find not working?
 
 	var divLoader = container.find("#all");	
 
 	var dish_types = model.getAllDishTypes();
+
+	var error_div = document.createElement('div');
 
 	String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
@@ -30,18 +31,28 @@ var AllDishesView = function (container, model, app) {
 
 
 	var allDishes = [];
-//	console.log(appetizerButton);
 
 	
 	var loadDishes = function (type, filter){
 		model.getAllDishes(type, filter, function(dishList){
 			allDishes = dishList;
-			//console.log(allDishes);
+			
 			createDishItemHtml(allDishes);
 			divLoader.removeClass("loader");
 
+			if(allDishes.length < 1){
+				error_div.className = "alert alert-info";
+				error_div.innerHTML = "No recipes were found, did you spell correctly?";
+				divLoader.append(error_div);
+				
+			}
+
 		}, function(error){
-			console.log("Didn't work");
+			divLoader.removeClass("loader");
+			error_div.className = "alert alert-danger";
+			error_div.innerHTML = "API could not be reached. We are sorry"
+			divLoader.append(error_div);
+			//console.log("Didn't work");
 		});
 
 
@@ -64,8 +75,8 @@ var AllDishesView = function (container, model, app) {
 								"</div>" +
 							"</div>");
 
-			//TODO: model.find doesnt work?
-			$(document).find("#all").append(dishItem);
+			
+			container.find("#all").append(dishItem);
 
 			new DishController(dishItem, dishList[i].id, app);
 	    }
@@ -78,13 +89,12 @@ var AllDishesView = function (container, model, app) {
 
 	this.update = function(model, changeDetails){
 		if (changeDetails === "search") {
-			//$(document).find("#searchText").empty();
+			
 			divLoader.addClass("loader");
 			allDishes = [];
 			loadDishes(model.getSelectedType(), model.getSearchValue());
 
-			//TODO - Model.find doesn't work?
-			$(document).find("#all").empty();
+			container.find("#all").empty();
 
 
 		}

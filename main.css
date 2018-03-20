@@ -60,6 +60,11 @@ header h1 {
 	width: 100%;
 }
 
+.row-first{
+	height: 180%;
+  	overflow: hidden;
+}
+
 img.resize {
 	width: 150px;
 	height: 100px;
